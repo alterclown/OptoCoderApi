@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OptoCoderSampleApi.Data.DbContexts;
+using OptoCoderSampleApi.Repository.Users;
+using OptoCoderSampleApi.Service.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +35,12 @@ namespace OptoCoderSampleApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OptoCoderSampleApi", Version = "v1" });
             });
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("OptoContext"));
+            });
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

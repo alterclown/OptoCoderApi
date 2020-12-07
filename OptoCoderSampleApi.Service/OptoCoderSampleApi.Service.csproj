@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OptoCoderSampleApi.Data\OptoCoderSampleApi.Data.csproj" />
+    <ProjectReference Include="..\OptoCoderSampleApi.Repository\OptoCoderSampleApi.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
