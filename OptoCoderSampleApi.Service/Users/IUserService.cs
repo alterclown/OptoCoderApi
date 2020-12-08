@@ -10,6 +10,7 @@ namespace OptoCoderSampleApi.Service.Users
     public interface IUserService
     {
         Task<List<User>> GetUsersInfo();
+        IEnumerable<User> RetrieveUserInfo();
     }
     public class UserService : IUserService
     {
@@ -25,6 +26,20 @@ namespace OptoCoderSampleApi.Service.Users
             {
                 var res = _repository.GetUsersInfo();
                 return await res;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IEnumerable<User> RetrieveUserInfo()
+        {
+            try
+            {
+                var res = _repository.RetrieveUserInfo();
+                return  res;
             }
             catch (Exception ex)
             {

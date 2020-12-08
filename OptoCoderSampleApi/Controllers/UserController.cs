@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OptoCoderSampleApi.Data.Entities;
 using OptoCoderSampleApi.Service.Users;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ namespace OptoCoderSampleApi.Controllers
                 var res = await _service.GetUsersInfo();
                 if (res != null)
                 {
-
                     return Ok(res);
                 }
                 return StatusCode(StatusCodes.Status204NoContent);

@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace OptoCoderSampleApi.Repository.Users
 {
     public interface IUserRepository
     {
         Task<List<User>> GetUsersInfo();
+        IEnumerable<User> RetrieveUserInfo();
     }
 
     public class UserRepository : IUserRepository
@@ -25,10 +27,25 @@ namespace OptoCoderSampleApi.Repository.Users
         {
             try
             {
-                var query = _context.Users
-                            .Include(a => a.Employees)
-                            .Include(a => a.Customers);
-                return await query.ToListAsync();
+                var res = await _context.Users
+                           .Include(a => a.Company)
+                           .ToListAsync();
+                return res;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public IEnumerable<User> RetrieveUserInfo()
+        {
+            try
+            {
+                var _query = _context.Users
+               .Include(a => a.Company);
+                return _query;
             }
             catch (Exception ex)
             {
