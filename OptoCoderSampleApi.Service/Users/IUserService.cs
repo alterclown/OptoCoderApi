@@ -11,6 +11,7 @@ namespace OptoCoderSampleApi.Service.Users
     {
         Task<List<User>> GetUsersInfo();
         IEnumerable<User> RetrieveUserInfo();
+        Task<User> Authenticate(string userName, string password);
     }
     public class UserService : IUserService
     {
@@ -46,6 +47,21 @@ namespace OptoCoderSampleApi.Service.Users
 
                 throw ex;
             }
+        }
+
+        public Task<User> Authenticate(string userName, string password)
+        {
+            try
+            {
+                var response = _repository.Authenticate(userName, password);
+                return response;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+         
         }
     }
 }
