@@ -10,7 +10,7 @@ namespace OptoCoderSampleApi.Service.Users
     public interface IUserService
     {
         Task<List<User>> GetUsersInfo();
-        IEnumerable<User> RetrieveUserInfo();
+        Task<User> RetrieveUserInfo(int userId);
         Task<User> Authenticate(string userName, string password);
     }
     public class UserService : IUserService
@@ -35,12 +35,12 @@ namespace OptoCoderSampleApi.Service.Users
             }
         }
 
-        public IEnumerable<User> RetrieveUserInfo()
+        public async Task<User> RetrieveUserInfo(int userId)
         {
             try
             {
-                var res = _repository.RetrieveUserInfo();
-                return  res;
+                var res = _repository.RetrieveUserInfo(userId);
+                return await res;
             }
             catch (Exception ex)
             {

@@ -16,7 +16,7 @@ namespace OptoCoderSampleApi.Repository.Users
     public interface IUserRepository
     {
         Task<List<User>> GetUsersInfo();
-        IEnumerable<User> RetrieveUserInfo();
+        Task<User> RetrieveUserInfo(int userId);
         Task<User> Authenticate(string userName, string password);
     }
 
@@ -46,13 +46,16 @@ namespace OptoCoderSampleApi.Repository.Users
             }
         }
 
-        public IEnumerable<User> RetrieveUserInfo()
+        public async Task<User> RetrieveUserInfo(int userId)
         {
             try
             {
-                var _query = _context.Users
-               .Include(a => a.Company);
-                return _query;
+                var _query =  _context.Users
+                            .Where(s => s.UserId == userId)
+                            .Select(s => s)
+                            .Include(a => a.Customers)
+                            .Include(a => a.Employees).FirstOrDefault<User>();
+                return  _query;
             }
             catch (Exception ex)
             {

@@ -37,6 +37,24 @@ namespace OptoCoderSampleApi.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> RetrieveUserInfo(int userId)
+        {
+            try
+            {
+                var res =  await _service.RetrieveUserInfo(userId);
+                if (res != null)
+                {
+                    return Ok(res);
+                }
+                return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> Post(string UserName,string Password)
         {
