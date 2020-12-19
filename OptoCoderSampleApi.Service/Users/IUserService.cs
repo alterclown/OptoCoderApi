@@ -49,11 +49,11 @@ namespace OptoCoderSampleApi.Service.Users
             }
         }
 
-        public Task<User> Authenticate(string userName, string password)
+        public async Task<User> Authenticate(string userName, string password)
         {
             try
             {
-                var response = _repository.Authenticate(userName, password);
+                var response = await _repository.Authenticate(userName, password);
                 return response;
             }
             catch (Exception ex)

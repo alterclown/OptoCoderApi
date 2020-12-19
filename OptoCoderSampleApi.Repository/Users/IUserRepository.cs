@@ -54,8 +54,8 @@ namespace OptoCoderSampleApi.Repository.Users
                             .Where(s => s.UserId == userId)
                             .Select(s => s)
                             .Include(a => a.Customers)
-                            .Include(a => a.Employees).FirstOrDefault<User>();
-                return  _query;
+                            .Include(a => a.Employees).FirstOrDefaultAsync<User>();
+                return await _query;
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace OptoCoderSampleApi.Repository.Users
         {
             try
             {
-                var user =  _context.Users.SingleOrDefault(x => x.UserName == userName && x.Password == password);
+                var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == userName && x.Password == password);
 
                 if (user == null)
                     return null;

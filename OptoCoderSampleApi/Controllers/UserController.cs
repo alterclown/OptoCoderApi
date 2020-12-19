@@ -60,7 +60,7 @@ namespace OptoCoderSampleApi.Controllers
         {
             try
             {
-                var res =  _service.Authenticate(UserName, Password);
+                var res =  await _service.Authenticate(UserName, Password);
                 if (res != null)
                 {
                     return Ok(res);
